@@ -51,12 +51,10 @@ const EntryDetail = ({ entry, onBack, onEdit, onDelete }) => {
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#dc2626',
-              cancelButtonColor: 'var(--gray-400)',
+              cancelButtonColor: '#6b7280',
               confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                onDelete(entry.id);
-              }
+            }).then((res) => {
+              if (res.isConfirmed) onDelete(entry.id);
             });
           }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2M10 11v6M14 11v6"/></svg>

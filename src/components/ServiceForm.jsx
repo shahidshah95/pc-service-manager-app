@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const ServiceForm = ({ onSave, onCancel, editData = null }) => {
   const [formData, setFormData] = useState({
+    id: editData?.id || undefined,      // ← required for upsert to UPDATE (not insert)
     customer: editData?.customer || '',
     date: editData?.date || new Date().toISOString().slice(0, 10),
     engineer: editData?.engineer || '',
@@ -56,7 +57,7 @@ const ServiceForm = ({ onSave, onCancel, editData = null }) => {
         icon: 'warning',
         title: 'Missing Field',
         text: 'Please enter the customer name.',
-        confirmButtonColor: 'var(--blue)'
+        confirmButtonColor: '#2563eb'
       });
     }
 
@@ -65,7 +66,7 @@ const ServiceForm = ({ onSave, onCancel, editData = null }) => {
         icon: 'error',
         title: 'Phone Number Required',
         text: 'Please enter a valid 10-digit phone number.',
-        confirmButtonColor: 'var(--red)'
+        confirmButtonColor: '#dc2626'
       });
     }
 
