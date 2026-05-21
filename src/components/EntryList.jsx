@@ -60,7 +60,6 @@ const EntryList = ({ entries, onEntryClick }) => {
               <th>Phone</th>
               <th>Date</th>
               <th>Engineer</th>
-              <th>Work Done</th>
               <th>Status</th>
               <th style={{ textAlign: 'right' }}>Amount</th>
             </tr>
@@ -80,7 +79,6 @@ const EntryList = ({ entries, onEntryClick }) => {
                   <td style={{ fontSize: '13px', color: 'var(--gray-500)' }}>{e.phone || '—'}</td>
                   <td style={{ fontSize: '13px', color: 'var(--gray-500)' }}>{e.date}</td>
                   <td>{e.engineer || '—'}</td>
-                  <td className="work-cell">{e.work_done}</td>
                   <td>
                     <span className={`status-pill ${e.status.toLowerCase()}`} style={{ fontSize: '11px', padding: '4px 10px' }}>
                       {e.status}
