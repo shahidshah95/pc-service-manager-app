@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/Header.css';
 
-const Header = ({ entryCount, onTabChange, activeTab, userEmail, onLogout }) => {
+const Header = ({ entryCount, onTabChange, activeTab }) => {
   return (
     <>
       <header>
@@ -13,12 +13,6 @@ const Header = ({ entryCount, onTabChange, activeTab, userEmail, onLogout }) => 
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           <div className="header-badge">{entryCount} entries</div>
-          {userEmail && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '12px' }}>
-              <span style={{ opacity: 0.8 }}>{userEmail}</span>
-              <button onClick={onLogout} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}>Logout</button>
-            </div>
-          )}
         </div>
       </header>
 

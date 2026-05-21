@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { supabase } from './lib/supabase';
 import Header from './components/Header';
-import Auth from './components/Auth';
 import Dashboard from './components/Dashboard';
 import ServiceForm from './components/ServiceForm';
 import EntryList from './components/EntryList';
@@ -10,24 +8,13 @@ import EntryDetail from './components/EntryDetail';
 import './styles/global.css';
 
 function App() {
-  const [session, setSession] = useState(null);
   const [activeTab, setActiveTab] = useState('list');
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedEntry, setSelectedEntry] = useState(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      fetchEntries();
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      fetchEntries();
-    });
-
-    return () => subscription.unsubscribe();
+    fetchEntries();
   }, []);
 
   const fetchEntries = async () => {
@@ -50,7 +37,7 @@ function App() {
       .from('entries')
       .upsert({ 
         ...entryData, 
-        user_id: session?.user?.id || '00000000-0000-0000-0000-000000000000' 
+        user_id: '00000000-0000-0000-0000-000000000000' 
       })
       .select();
 
@@ -123,14 +110,7 @@ function App() {
     setActiveTab('new');
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-  };
-
-  // TEMPORARILY DISABLED FOR TESTING
-  // if (!session) {
-  //   return <Auth onAuthSuccess={(user) => setSession({ user })} />;
-  // }
+  // Removed logout handler as it's no longer needed
 
   return (
     <div className="App">
@@ -138,8 +118,6 @@ function App() {
         entryCount={entries.length} 
         activeTab={activeTab} 
         onTabChange={setActiveTab} 
-        userEmail={session?.user?.email || 'test@example.com'}
-        onLogout={handleLogout}
       />
       
       <main className="main-content" style={{ maxWidth: '1280px', margin: '0 auto', padding: '24px 20px' }}>
