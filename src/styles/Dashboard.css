@@ -51,20 +51,50 @@
   letter-spacing: 0.5px;
 }
 
-.stat-card.blue { color: var(--primary); }
+.stat-card.blue  { color: var(--primary); }
 .stat-card.green { color: var(--success); }
 .stat-card.amber { color: var(--warning); }
-.stat-card.red { color: var(--danger); }
+.stat-card.red   { color: var(--danger); }
 
+/* ─── Responsive ──────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .stats-row {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 
 @media (max-width: 600px) {
   .stats-row {
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    margin-bottom: 20px;
   }
-  .stat-num { font-size: 28px; }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-num {
+    font-size: 26px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  .stat-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .stats-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-num {
+    font-size: 22px;
+  }
 }

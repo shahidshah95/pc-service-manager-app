@@ -1,4 +1,4 @@
-/* Premium Table Styling */
+/* ─── Table Container ─────────────────────────────────────── */
 .table-container {
   background: white;
   border-radius: var(--radius-xl);
@@ -16,70 +16,60 @@
 
 .main-table th {
   background: var(--bg-main);
-  padding: 16px 24px;
+  padding: 16px 20px;
   text-align: left;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom: 1px solid var(--border);
+  white-space: nowrap;
 }
 
 .main-table td {
-  padding: 18px 24px;
+  padding: 16px 20px;
   font-size: 14px;
   color: var(--text-main);
   border-bottom: 1px solid var(--border);
   transition: background 0.2s ease;
 }
 
-.main-table tr:last-child td {
-  border-bottom: none;
-}
+.main-table tr:last-child td { border-bottom: none; }
+.main-table tr { cursor: pointer; }
+.main-table tr:hover td { background: hsla(221, 83%, 53%, 0.02); }
 
-.main-table tr {
-  cursor: pointer;
-}
-
-.main-table tr:hover td {
-  background: hsla(221, 83%, 53%, 0.02);
-}
-
-.id-cell {
-  color: var(--text-muted);
-  font-weight: 500;
-  width: 60px;
-}
-
-.customer-cell {
-  font-weight: 600;
-  color: var(--primary);
-}
+.id-cell       { color: var(--text-muted); font-weight: 500; width: 50px; }
+.customer-cell { font-weight: 600; color: var(--primary); }
 
 .amount-cell {
   font-weight: 700;
   font-family: 'Outfit', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   text-align: right;
+  white-space: nowrap;
 }
 
+/* ─── Status Pill ─────────────────────────────────────────── */
 .status-pill {
   display: inline-flex;
-  padding: 6px 12px;
+  padding: 5px 12px;
   border-radius: 10px;
   font-size: 12px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
-/* Pagination */
+/* ─── Pagination ──────────────────────────────────────────── */
 .pagination {
-  padding: 16px 24px;
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: white;
   border-top: 1px solid var(--gray-100);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .page-info {
@@ -89,7 +79,8 @@
 
 .page-btns {
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .page-btn {
@@ -104,47 +95,102 @@
   transition: all 0.2s;
 }
 
-.page-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.page-btn:disabled        { opacity: 0.4; cursor: not-allowed; }
+.page-btn:not(:disabled):hover { background: var(--gray-50); border-color: var(--gray-300); }
+.page-btn.active          { background: var(--blue); color: white; border-color: var(--blue); }
+
+/* ─── Tablet (≤ 900px) ────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Hide Engineer on tablet */
+  .main-table th:nth-child(5),
+  .main-table td:nth-child(5) { display: none; }
+
+  .main-table th { padding: 14px 14px; }
+  .main-table td { padding: 14px 14px; font-size: 13px; }
 }
 
-.page-btn:not(:disabled):hover {
-  background: var(--gray-50);
-  border-color: var(--gray-300);
-}
-
-.page-btn.active {
-  background: var(--blue);
-  color: white;
-  border-color: var(--blue);
-}
-
-@media (max-width: 768px) {
-  .main-table th:nth-child(4), .main-table td:nth-child(4), /* Engineer */
-  .main-table th:nth-child(5), .main-table td:nth-child(5), /* Work Done */
-  .main-table th:nth-child(3), .main-table td:nth-child(3)  /* Phone */ {
-    display: none;
+/* ─── Mobile (≤ 640px) — Card View ───────────────────────── */
+@media (max-width: 640px) {
+  /* Turn table into stacked cards */
+  .table-container {
+    border-radius: var(--radius-lg);
+    margin-top: 16px;
+    overflow: visible;
+    background: transparent;
+    border: none;
+    box-shadow: none;
   }
-  
+
+  .main-table,
+  .main-table thead,
+  .main-table tbody,
+  .main-table tr,
+  .main-table th,
   .main-table td {
-    padding: 12px 10px;
-    font-size: 13px;
+    display: block;
+    width: 100%;
   }
 
+  /* Hide all headers */
+  .main-table thead { display: none; }
+
+  /* Each row becomes a card */
+  .main-table tr {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .main-table tr:last-child td { border-bottom: none; } /* override */
+
+  /* All cells full-width, natural flow */
+  .main-table td {
+    padding: 0;
+    border: none;
+    font-size: 14px;
+  }
+
+  /* Row number badge */
+  .main-table td.id-cell {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Customer name large */
+  .main-table td.customer-cell {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  /* Amount right-aligned and prominent */
+  .main-table td.amount-cell {
+    text-align: left;
+    font-size: 18px;
+    color: var(--success);
+  }
+
+  /* Pagination stacked */
   .pagination {
     flex-direction: column;
-    gap: 16px;
     align-items: center;
+    padding: 14px 16px;
   }
 
-  .page-info {
-    text-align: center;
-  }
+  .page-info { text-align: center; }
+  .page-btns { justify-content: center; }
+}
 
-  .page-btns {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+/* ─── Very small (≤ 360px) ────────────────────────────────── */
+@media (max-width: 360px) {
+  .main-table tr { padding: 12px; gap: 6px; }
+  .main-table td.customer-cell { font-size: 15px; }
 }

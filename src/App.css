@@ -15,7 +15,13 @@
 
 @media (max-width: 768px) {
   .main-content {
-    padding: 20px 16px;
+    padding: 16px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 12px 10px;
   }
 }
 
