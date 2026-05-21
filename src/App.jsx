@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { supabase } from './lib/supabase';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import ServiceForm from './components/ServiceForm';
