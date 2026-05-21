@@ -1,0 +1,224 @@
+.detail-container {
+  animation: slideIn 0.3s ease-out;
+  padding-bottom: 40px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--blue-light);
+  border: none;
+  color: var(--blue);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: #eff6ff;
+  color: var(--blue-dark);
+}
+
+.detail-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-edit {
+  background: #f8fafc;
+  border: 1px solid var(--gray-200);
+  color: var(--gray-700);
+}
+
+.btn-edit:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+}
+
+.btn-delete {
+  background: #fffafa;
+  border: 1px solid #fee2e2;
+  color: #dc2626;
+}
+
+.btn-delete:hover {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.detail-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  border: 1px solid var(--gray-100);
+  margin-bottom: 20px;
+}
+
+.detail-banner {
+  background: var(--gray-50);
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.detail-avatar-lg {
+  width: 56px;
+  height: 56px;
+  background: var(--blue);
+  color: white;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.detail-banner-info h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.detail-body {
+  padding: 32px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.info-item label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+.info-item p {
+  font-size: 15px;
+  color: var(--gray-800);
+  font-weight: 500;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.work-content {
+  background: #f8fafc;
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  color: var(--gray-700);
+  line-height: 1.6;
+  font-size: 14px;
+  border-left: 4px solid var(--blue);
+  margin-bottom: 32px;
+}
+
+.parts-table-wrap {
+  margin-top: 10px;
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.parts-table th {
+  text-align: left;
+  background: var(--gray-50);
+  padding: 12px 16px;
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+.parts-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--gray-700);
+  border-top: 1px solid var(--gray-50);
+}
+
+.parts-table th:first-child, .parts-table td:first-child {
+  text-align: left;
+  width: 40%;
+}
+
+.parts-table th:nth-child(2), .parts-table td:nth-child(2),
+.parts-table th:nth-child(3), .parts-table td:nth-child(3) {
+  text-align: center;
+  width: 20%;
+}
+
+.parts-table th:last-child, .parts-table td:last-child {
+  text-align: right;
+  width: 20%;
+}
+
+.payment-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--gray-100);
+}
+
+.payment-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-400);
+  margin-bottom: 4px;
+}
+
+.payment-amount-lg {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--gray-900);
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

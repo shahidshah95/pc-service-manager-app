@@ -1,0 +1,149 @@
+/* Premium Table Styling */
+.table-container {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-100);
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.main-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.main-table th {
+  background: var(--gray-50);
+  padding: 14px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.main-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--gray-700);
+  border-bottom: 1px solid var(--gray-50);
+}
+
+.main-table tr:last-child td {
+  border-bottom: none;
+}
+
+.main-table tr {
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.main-table tr:hover {
+  background: #f8fafc;
+}
+
+.id-cell {
+  color: var(--gray-400);
+  font-weight: 600;
+  width: 40px;
+}
+
+.customer-cell {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.amount-cell {
+  font-weight: 700;
+  color: var(--gray-900);
+  text-align: right;
+}
+
+.work-cell {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--gray-500);
+  font-size: 13px;
+}
+
+/* Pagination */
+.pagination {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-top: 1px solid var(--gray-100);
+}
+
+.page-info {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+.page-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.page-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--gray-200);
+  background: white;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-btn:not(:disabled):hover {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+}
+
+.page-btn.active {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+
+@media (max-width: 768px) {
+  .main-table th:nth-child(4), .main-table td:nth-child(4), /* Engineer */
+  .main-table th:nth-child(5), .main-table td:nth-child(5), /* Work Done */
+  .main-table th:nth-child(3), .main-table td:nth-child(3)  /* Phone */ {
+    display: none;
+  }
+  
+  .main-table td {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .page-info {
+    text-align: center;
+  }
+
+  .page-btns {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
