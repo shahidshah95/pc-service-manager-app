@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2';
 import '../styles/EntryList.css';
 import '../styles/EntryTable.css';
 
@@ -57,6 +58,15 @@ const EntryList = ({ entries, onEntryClick }) => {
 
   const exportToExcel = () => {
     if (filtered.length === 0) return;
+    
+    if (!startDate || !endDate) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Date Range Required',
+        text: 'Please select both "From Date" and "To Date" before exporting.',
+      });
+      return;
+    }
     
     const dataToExport = filtered.map(e => ({
       'ID': e.id,
