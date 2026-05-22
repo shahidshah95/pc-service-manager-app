@@ -159,7 +159,18 @@ function App() {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    const result = await Swal.fire({
+      title: 'Logout?',
+      text: "Are you sure you want to end your session?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, logout',
+      cancelButtonText: 'Cancel'
+    });
+    
+    if (result.isConfirmed) {
+      await supabase.auth.signOut();
+    }
   };
 
   // ─── Render ───────────────────────────────────────────────────────────────
