@@ -139,7 +139,7 @@ const ServiceForm = ({ onSave, onCancel, editData = null }) => {
               <option>Desktop</option>
               <option>Laptop</option>
               <option>Server</option>
-              <option>Mixed</option>
+              <option>Other</option>
             </select>
           </div>
         </div>
