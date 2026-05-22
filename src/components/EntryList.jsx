@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import * as XLSX from 'xlsx';
 import '../styles/EntryList.css';
 import '../styles/EntryTable.css';
 
 const EntryList = ({ entries, onEntryClick }) => {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -20,7 +25,26 @@ const EntryList = ({ entries, onEntryClick }) => {
     const matchesSearch = (e.customer || '').toLowerCase().includes(s) || 
                           (e.engineer || '').toLowerCase().includes(s);
     const matchesFilter = filter ? e.status === filter : true;
-    return matchesSearch && matchesFilter;
+
+    let matchesDate = true;
+    if (startDate || endDate) {
+      const entryDate = new Date(e.date);
+      // Reset time to start of day for pure date comparison
+      entryDate.setHours(0,0,0,0);
+      
+      if (startDate) {
+         const start = new Date(startDate);
+         start.setHours(0,0,0,0);
+         if (entryDate < start) matchesDate = false;
+      }
+      if (endDate && matchesDate) {
+         const end = new Date(endDate);
+         end.setHours(0,0,0,0);
+         if (entryDate > end) matchesDate = false;
+      }
+    }
+
+    return matchesSearch && matchesFilter && matchesDate;
   });
 
   // Pagination logic
@@ -31,10 +55,41 @@ const EntryList = ({ entries, onEntryClick }) => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const exportToExcel = () => {
+    if (filtered.length === 0) return;
+    
+    const dataToExport = filtered.map(e => ({
+      'ID': e.id,
+      'Customer': e.customer,
+      'Phone': e.phone || '',
+      'Date': e.date,
+      'Engineer': e.engineer || '',
+      'Status': e.status,
+      'Amount (₹)': parseFloat(e.amount) || 0,
+      'PC Count': e.pc_count || 1,
+      'Description': e.pc_desc || '',
+      'Work Done': e.work_done || '',
+      'Notes': e.notes || ''
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Service Entries");
+    
+    let filename = 'Service_Entries.xlsx';
+    if (startDate || endDate) {
+      const fromStr = startDate ? startDate.toISOString().split('T')[0] : 'Start';
+      const toStr = endDate ? endDate.toISOString().split('T')[0] : 'Now';
+      filename = `Service_Entries_${fromStr}_to_${toStr}.xlsx`;
+    }
+
+    XLSX.writeFile(workbook, filename);
+  };
+
   return (
     <div id="pageList">
-      <div className="search-row" style={{ gap: '12px' }}>
-        <div className="search-input-wrap" style={{ flex: 1 }}>
+      <div className="search-row" style={{ gap: '12px', flexWrap: 'wrap' }}>
+        <div className="search-input-wrap" style={{ flex: '1 1 200px' }}>
           <span className="search-icon">🔍</span>
           <input 
             type="text" 
@@ -43,12 +98,43 @@ const EntryList = ({ entries, onEntryClick }) => {
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
           />
         </div>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => { setStartDate(date); setCurrentPage(1); }}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            placeholderText="From Date"
+            className="filter-select dt-picker"
+          />
+          <span style={{ color: 'var(--text-muted)' }}>-</span>
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => { setEndDate(date); setCurrentPage(1); }}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
+            placeholderText="To Date"
+            className="filter-select dt-picker"
+          />
+        </div>
         <select className="filter-select" value={filter} onChange={(e) => { setFilter(e.target.value); setCurrentPage(1); }}>
           <option value="">All Status</option>
           <option>Paid</option>
           <option>Pending</option>
           <option>Unpaid</option>
         </select>
+        <button 
+          onClick={exportToExcel}
+          disabled={filtered.length === 0}
+          className="btn btn-primary"
+          style={{ padding: '8px 16px', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export
+        </button>
       </div>
 
       <div className="table-container">
