@@ -5,6 +5,7 @@ import '../styles/ProfileSettings.css';
 
 const ProfileSettings = ({ onClose }) => {
   const [email, setEmail] = useState('');
+  const [sessionEmail, setSessionEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,7 @@ const ProfileSettings = ({ onClose }) => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         setEmail(user.email);
+        setSessionEmail(user.email);
       }
     };
     fetchUser();
@@ -27,17 +29,28 @@ const ProfileSettings = ({ onClose }) => {
       return Swal.fire('Error', 'Email address cannot be empty', 'error');
     }
 
-    if (!password || password.length < 6) {
-      return Swal.fire('Error', 'Please provide a new password (min 6 characters) to sync with your email change.', 'error');
+    const isEmailChanged = email !== sessionEmail;
+
+    if (isEmailChanged && (!password || password.length < 6)) {
+      return Swal.fire('Error', 'When changing your email, you MUST provide a new password (min 6 characters).', 'error');
+    }
+
+    if (!isEmailChanged && !password) {
+      // User didn't change email and didn't enter a new password
+      return onClose();
+    }
+
+    if (password && password.length < 6) {
+      return Swal.fire('Error', 'Password must be at least 6 characters.', 'error');
     }
 
     setLoading(true);
 
-    // Update both email and password simultaneously
-    const { error } = await supabase.auth.updateUser({
-      email: email,
-      password: password
-    });
+    const updates = {};
+    if (isEmailChanged) updates.email = email;
+    if (password) updates.password = password;
+
+    const { error } = await supabase.auth.updateUser(updates);
 
     setLoading(false);
 
@@ -73,7 +86,7 @@ const ProfileSettings = ({ onClose }) => {
 
         <form className="settings-form" onSubmit={handleUpdate}>
           <div style={{ fontSize: '13px', color: 'var(--gray-500)', marginBottom: '10px' }}>
-            Update your admin login details. Both email and password must be updated together.
+            Update your admin login details. If you change your email, you must set a new password. Otherwise, leave password blank to keep it unchanged.
           </div>
 
           <div className="field-group">
@@ -93,9 +106,9 @@ const ProfileSettings = ({ onClose }) => {
                 type={showPassword ? "text" : "password"} 
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
-                placeholder="Enter new password (min 6 chars)"
+                placeholder="Leave blank to keep same"
                 style={{ paddingRight: '40px' }}
-                required 
+                autoComplete="new-password"
               />
               <button
                 type="button"
