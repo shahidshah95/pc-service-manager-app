@@ -178,3 +178,7 @@ div:where(.swal2-container) button:where(.swal2-styled) {
   font-family: 'Inter', sans-serif !important;
   font-weight: 600 !important;
 }
+
+div:where(.swal2-container) button:where(.swal2-confirm) {
+  background-color: var(--primary) !important;
+}
