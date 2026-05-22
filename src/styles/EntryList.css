@@ -58,6 +58,21 @@
   border-color: var(--primary);
 }
 
+.date-filter-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.export-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
 /* ─── Responsive ──────────────────────────────────────────── */
 @media (max-width: 640px) {
   .search-row {
@@ -74,5 +89,26 @@
   .filter-select {
     width: 100%;
     min-width: unset;
+  }
+
+  .date-filter-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .date-filter-group .react-datepicker-wrapper {
+    flex: 1;
+    width: 100%;
+  }
+
+  .date-filter-group .filter-select {
+    width: 100%;
+  }
+
+  .export-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 15px;
   }
 }
