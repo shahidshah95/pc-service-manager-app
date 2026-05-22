@@ -88,7 +88,7 @@ const EntryList = ({ entries, onEntryClick }) => {
 
   return (
     <div id="pageList">
-      <div className="search-row" style={{ gap: '12px', flexWrap: 'wrap' }}>
+      <div className="search-row">
         <div className="search-input-wrap">
           <span className="search-icon">🔍</span>
           <input 
@@ -98,44 +98,46 @@ const EntryList = ({ entries, onEntryClick }) => {
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
           />
         </div>
-        <div className="date-filter-group">
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => { setStartDate(date); setCurrentPage(1); }}
-            selectsStart
-            startDate={startDate}
-            endDate={endDate}
-            dateFormat="dd/MM/yyyy"
-            placeholderText="From Date"
-            className="filter-select dt-picker"
-          />
-          <span style={{ color: 'var(--text-muted)' }}>-</span>
-          <DatePicker
-            selected={endDate}
-            onChange={(date) => { setEndDate(date); setCurrentPage(1); }}
-            selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            dateFormat="dd/MM/yyyy"
-            placeholderText="To Date"
-            className="filter-select dt-picker"
-          />
+        <div className="filters-wrap">
+          <div className="date-filter-group">
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => { setStartDate(date); setCurrentPage(1); }}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="From Date"
+              className="filter-select dt-picker"
+            />
+            <span style={{ color: 'var(--text-muted)' }}>-</span>
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => { setEndDate(date); setCurrentPage(1); }}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="To Date"
+              className="filter-select dt-picker"
+            />
+          </div>
+          <select className="filter-select" value={filter} onChange={(e) => { setFilter(e.target.value); setCurrentPage(1); }}>
+            <option value="">All Status</option>
+            <option>Paid</option>
+            <option>Pending</option>
+            <option>Unpaid</option>
+          </select>
+          <button 
+            onClick={exportToExcel}
+            disabled={filtered.length === 0}
+            className="btn btn-primary export-btn"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export
+          </button>
         </div>
-        <select className="filter-select" value={filter} onChange={(e) => { setFilter(e.target.value); setCurrentPage(1); }}>
-          <option value="">All Status</option>
-          <option>Paid</option>
-          <option>Pending</option>
-          <option>Unpaid</option>
-        </select>
-        <button 
-          onClick={exportToExcel}
-          disabled={filtered.length === 0}
-          className="btn btn-primary export-btn"
-        >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Export
-        </button>
       </div>
 
       <div className="table-container">
