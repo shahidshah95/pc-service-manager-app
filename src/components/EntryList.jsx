@@ -89,7 +89,7 @@ const EntryList = ({ entries, onEntryClick }) => {
   return (
     <div id="pageList">
       <div className="search-row" style={{ gap: '12px', flexWrap: 'wrap' }}>
-        <div className="search-input-wrap" style={{ flex: '1 1 200px' }}>
+        <div className="search-input-wrap">
           <span className="search-icon">🔍</span>
           <input 
             type="text" 

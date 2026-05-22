@@ -133,11 +133,13 @@ header {
   }
 }
 
-@media (max-width: 400px) {
-  .logo-text {
+@media (max-width: 640px) {
+  .logo-text, .action-text {
     display: none;
   }
+}
 
+@media (max-width: 400px) {
   .nav-tab {
     padding: 8px 12px;
     font-size: 12px;
