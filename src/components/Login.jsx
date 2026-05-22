@@ -103,7 +103,6 @@ const Login = ({ onLoginSuccess }) => {
             <label>Email Address</label>
             <input
               type="email"
-              value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="e.g. admin@example.com"
             />
