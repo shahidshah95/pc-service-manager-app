@@ -105,6 +105,7 @@ const EntryList = ({ entries, onEntryClick }) => {
             selectsStart
             startDate={startDate}
             endDate={endDate}
+            dateFormat="dd/MM/yyyy"
             placeholderText="From Date"
             className="filter-select dt-picker"
           />
@@ -116,6 +117,7 @@ const EntryList = ({ entries, onEntryClick }) => {
             startDate={startDate}
             endDate={endDate}
             minDate={startDate}
+            dateFormat="dd/MM/yyyy"
             placeholderText="To Date"
             className="filter-select dt-picker"
           />
