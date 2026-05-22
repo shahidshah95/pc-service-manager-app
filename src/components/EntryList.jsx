@@ -62,7 +62,7 @@ const EntryList = ({ entries, onEntryClick }) => {
       'ID': e.id,
       'Customer': e.customer,
       'Phone': e.phone || '',
-      'Date': e.date,
+      'Date': formatDate(e.date),
       'Engineer': e.engineer || '',
       'Status': e.status,
       'Amount (₹)': parseFloat(e.amount) || 0,
@@ -165,7 +165,7 @@ const EntryList = ({ entries, onEntryClick }) => {
                   <td className="id-cell">{indexOfFirstItem + index + 1}</td>
                   <td className="customer-cell">{e.customer}</td>
                   <td style={{ fontSize: '13px', color: 'var(--gray-500)' }}>{e.phone || '—'}</td>
-                  <td style={{ fontSize: '13px', color: 'var(--gray-500)' }}>{e.date}</td>
+                  <td style={{ fontSize: '13px', color: 'var(--gray-500)' }}>{formatDate(e.date)}</td>
                   <td>{e.engineer || '—'}</td>
                   <td>
                     <span className={`status-pill ${e.status.toLowerCase()}`} style={{ fontSize: '11px', padding: '4px 10px' }}>
