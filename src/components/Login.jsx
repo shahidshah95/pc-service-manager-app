@@ -3,11 +3,11 @@ import Swal from 'sweetalert2';
 import { supabase } from '../lib/supabase';
 import '../styles/Login.css';
 
-const getErrorMessage = (msg) => {
-  if (/rate limit/i.test(msg)) {
-    return 'Email rate limit exceeded. Only a few emails per hour allowed. Please wait at least 60 minutes before trying again.';
+const getSwalConfig = (error) => {
+  if (/rate limit/i.test(error.message)) {
+    return { icon: 'warning', title: 'Limit Reached', text: 'Only a few emails per hour allowed. Please wait at least 60 minutes before trying again.' };
   }
-  return msg;
+  return { icon: 'error', title: 'Login Failed', text: error.message };
 };
 
 const Login = ({ onLoginSuccess }) => {
@@ -51,12 +51,8 @@ const Login = ({ onLoginSuccess }) => {
     setLoading(false);
 
     if (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Login Failed',
-        text: getErrorMessage(error.message),
-        confirmButtonColor: '#dc2626'
-      });
+      const cfg = getSwalConfig(error);
+      Swal.fire({ icon: cfg.icon, title: cfg.title, text: cfg.text, confirmButtonColor: cfg.icon === 'warning' ? 'var(--primary)' : '#dc2626' });
     } else {
       onLoginSuccess(data.session);
     }
@@ -79,12 +75,8 @@ const Login = ({ onLoginSuccess }) => {
     setLoading(false);
 
     if (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: getErrorMessage(error.message),
-        confirmButtonColor: '#dc2626'
-      });
+      const cfg = getSwalConfig(error);
+      Swal.fire({ icon: cfg.icon, title: cfg.title === 'Login Failed' ? 'Error' : cfg.title, text: cfg.text, confirmButtonColor: cfg.icon === 'warning' ? 'var(--primary)' : '#dc2626' });
     } else {
       Swal.fire({
         icon: 'success',
