@@ -3,6 +3,13 @@ import Swal from 'sweetalert2';
 import { supabase } from '../lib/supabase';
 import '../styles/ProfileSettings.css';
 
+const getErrorMessage = (msg) => {
+  if (/rate limit/i.test(msg)) {
+    return 'Email rate limit exceeded. Only a few emails per hour allowed. Please wait at least 60 minutes before trying again.';
+  }
+  return msg;
+};
+
 const ProfileSettings = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [sessionEmail, setSessionEmail] = useState('');
@@ -58,7 +65,7 @@ const ProfileSettings = ({ onClose }) => {
       Swal.fire({
         icon: 'error',
         title: 'Update failed',
-        text: error.message,
+        text: getErrorMessage(error.message),
         confirmButtonColor: '#dc2626'
       });
     } else {

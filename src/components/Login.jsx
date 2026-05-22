@@ -3,6 +3,13 @@ import Swal from 'sweetalert2';
 import { supabase } from '../lib/supabase';
 import '../styles/Login.css';
 
+const getErrorMessage = (msg) => {
+  if (/rate limit/i.test(msg)) {
+    return 'Email rate limit exceeded. Supabase allows only a few emails per hour on the free plan. Please wait at least 60 minutes before trying again.';
+  }
+  return msg;
+};
+
 const Login = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('suhelfitness@gmail.com');
   const [password, setPassword] = useState('');
@@ -47,7 +54,7 @@ const Login = ({ onLoginSuccess }) => {
       Swal.fire({
         icon: 'error',
         title: 'Login Failed',
-        text: error.message,
+        text: getErrorMessage(error.message),
         confirmButtonColor: '#dc2626'
       });
     } else {
@@ -75,7 +82,7 @@ const Login = ({ onLoginSuccess }) => {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: error.message,
+        text: getErrorMessage(error.message),
         confirmButtonColor: '#dc2626'
       });
     } else {
