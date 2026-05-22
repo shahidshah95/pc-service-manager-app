@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard';
 import ServiceForm from './components/ServiceForm';
 import EntryList from './components/EntryList';
 import EntryDetail from './components/EntryDetail';
+import Login from './components/Login';
+import ProfileSettings from './components/ProfileSettings';
 import './styles/global.css';
 import './App.css';
 
@@ -16,6 +18,9 @@ function App() {
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [fetchError, setFetchError] = useState(false);
+  const [session, setSession] = useState(null);
+  const [isInitializing, setIsInitializing] = useState(true);
+  const [showProfile, setShowProfile] = useState(false);
 
   // ─── Fetch Entries (with retry) ──────────────────────────────────────────
   const fetchEntries = useCallback(async (silent = false) => {
@@ -40,7 +45,17 @@ function App() {
 
   // ─── On mount: fetch + listen for online/offline ──────────────────────────
   useEffect(() => {
-    fetchEntries();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      if (session) fetchEntries();
+      setIsInitializing(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      if (session) fetchEntries();
+    });
+
 
     // Native browser events for immediate UI update
     const handleOnline = () => setIsOnline(true);
@@ -58,6 +73,7 @@ function App() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
       unsubscribe();
+      subscription.unsubscribe();
     };
   }, [fetchEntries]);
 
@@ -142,9 +158,22 @@ function App() {
     setActiveTab('new');
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
   // ─── Render ───────────────────────────────────────────────────────────────
+  if (isInitializing) {
+    return <div style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>;
+  }
+
+  if (!session) {
+    return <Login onLoginSuccess={setSession} />;
+  }
+
   return (
     <div className="App">
+      {showProfile && <ProfileSettings onClose={() => setShowProfile(false)} />}
       {/* ── Connection Banner ── */}
       {!isOnline && (
         <div style={{
@@ -202,6 +231,8 @@ function App() {
         entryCount={entries.length}
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        onProfileClick={() => setShowProfile(true)}
+        onLogoutClick={handleLogout}
       />
 
       <main className="main-content">
