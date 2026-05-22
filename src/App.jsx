@@ -250,7 +250,7 @@ function App() {
               width: '40px',
               height: '40px',
               border: '3px solid var(--gray-200)',
-              borderTop: '3px solid var(--blue)',
+              borderTop: '3px solid var(--primary)',
               borderRadius: '50%',
               animation: 'spin 0.8s linear infinite',
             }} />

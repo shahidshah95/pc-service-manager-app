@@ -25,7 +25,7 @@
 .login-header svg {
   width: 48px;
   height: 48px;
-  color: var(--blue);
+  color: var(--primary);
   margin-bottom: 12px;
 }
 
@@ -66,13 +66,13 @@
 
 .login-form .field-group input:focus {
   outline: none;
-  border-color: var(--blue);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
 .forgot-password-link {
   font-size: 13px;
-  color: var(--blue);
+  color: var(--primary);
   text-decoration: none;
   font-weight: 600;
   cursor: pointer;
@@ -91,24 +91,30 @@
 .btn-login {
   width: 100%;
   padding: 12px;
-  background-color: var(--blue);
-  color: #fff;
+  background-color: var(--primary);
+  color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   font-size: 15px;
+  font-family: inherit;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin-top: 10px;
+  box-shadow: 0 4px 14px var(--primary-glow);
 }
 
 .btn-login:hover {
-  background-color: #1d4ed8;
+  background: hsl(185, 84%, 29%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--primary-glow);
 }
 
 .btn-login:disabled {
-  background-color: var(--gray-300);
+  background-color: var(--text-muted);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .login-footer {
