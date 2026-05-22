@@ -86,7 +86,7 @@ const ProfileSettings = ({ onClose }) => {
 
         <form className="settings-form" onSubmit={handleUpdate}>
           <div style={{ fontSize: '13px', color: 'var(--gray-500)', marginBottom: '10px' }}>
-            Update your admin login details. If you change your email, you must set a new password. Otherwise, leave password blank to keep it unchanged.
+            Update email or password. Changing email requires a new password.
           </div>
 
           <div className="field-group">
@@ -106,7 +106,7 @@ const ProfileSettings = ({ onClose }) => {
                 type={showPassword ? "text" : "password"} 
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
-                placeholder="Leave blank to keep same"
+                placeholder="Enter new password"
                 style={{ paddingRight: '40px' }}
                 autoComplete="new-password"
               />
