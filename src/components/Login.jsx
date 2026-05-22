@@ -5,7 +5,7 @@ import '../styles/Login.css';
 
 const getErrorMessage = (msg) => {
   if (/rate limit/i.test(msg)) {
-    return 'Email rate limit exceeded. Supabase allows only a few emails per hour on the free plan. Please wait at least 60 minutes before trying again.';
+    return 'Email rate limit exceeded. Only a few emails per hour allowed. Please wait at least 60 minutes before trying again.';
   }
   return msg;
 };
