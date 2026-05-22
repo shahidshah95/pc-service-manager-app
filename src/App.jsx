@@ -127,7 +127,7 @@ function App() {
       text: 'Service entry saved successfully.',
       timer: 1500,
       showConfirmButton: false,
-      confirmButtonColor: '#2563eb'
+      confirmButtonColor: 'var(--primary)'
     });
     setSelectedEntry(null);
     fetchEntries();

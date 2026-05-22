@@ -16,7 +16,7 @@ const Login = ({ onLoginSuccess }) => {
         icon: 'warning',
         title: 'Missing Fields',
         text: 'Please enter both email and password.',
-        confirmButtonColor: '#2563eb'
+        confirmButtonColor: 'var(--primary)'
       });
     }
 
@@ -61,7 +61,7 @@ const Login = ({ onLoginSuccess }) => {
         icon: 'warning',
         title: 'Email Required',
         text: 'Please enter your email address to reset your password.',
-        confirmButtonColor: '#2563eb'
+        confirmButtonColor: 'var(--primary)'
       });
     }
 

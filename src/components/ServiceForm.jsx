@@ -57,7 +57,7 @@ const ServiceForm = ({ onSave, onCancel, editData = null }) => {
         icon: 'warning',
         title: 'Missing Field',
         text: 'Please enter the customer name.',
-        confirmButtonColor: '#2563eb'
+        confirmButtonColor: 'var(--primary)'
       });
     }
 

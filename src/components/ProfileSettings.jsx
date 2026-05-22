@@ -53,7 +53,7 @@ const ProfileSettings = ({ onClose }) => {
         icon: 'success',
         title: 'Profile Updated',
         text: 'Your email and password have been updated successfully! Please note you may need to confirm the new email if email confirmations are enabled.',
-        confirmButtonColor: '#2563eb'
+        confirmButtonColor: 'var(--primary)'
       }).then(() => {
         onClose();
       });
